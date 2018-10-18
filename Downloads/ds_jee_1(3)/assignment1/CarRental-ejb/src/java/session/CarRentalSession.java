@@ -1,11 +1,13 @@
 package session;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateful;
 import rental.CarRentalCompany;
+import rental.CarType;
 import rental.Quote;
 import rental.RentalStore;
 import rental.Reservation;
@@ -18,6 +20,16 @@ public class CarRentalSession implements CarRentalSessionRemote {
     @Override
     public Set<String> getAllRentalCompanies() {
         return new HashSet<String>(RentalStore.getRentals().keySet());
+    }
+    public List<CarType> getAvailableCarTypes(Date start, Date end){
+        List<CarType> cartype = new ArrayList();      
+        for(String crc : getAllRentalCompanies()){
+            CarRentalCompany crc1 = RentalStore.getRental(crc);
+            for(CarType ct : crc1.getAvailableCarTypes(start, end)){
+                cartype.add(ct);
+            }
+        }
+        return cartype;
     }
     public void createQuote(ReservationConstraints constraint, String client){
       for (String s: getAllRentalCompanies()){
