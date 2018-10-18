@@ -13,6 +13,7 @@ import javax.ejb.LocalBean;
 import rental.Car;
 import rental.CarRentalCompany;
 import rental.CarType;
+import rental.RentalStore;
 import rental.Reservation;
 
 /**
@@ -23,11 +24,13 @@ import rental.Reservation;
 @LocalBean
 public class ManagerSession {
     
-    public Collection<CarType> getCarTypesByCRC(CarRentalCompany crc){
+    public Collection<CarType> getCarTypesByCRC(String crc1){
+        CarRentalCompany crc = RentalStore.getRental(crc1);
         return crc.getCarTypes();
     }
     
-    public Map<CarType, Integer> getNbReservationsPerCarType(CarRentalCompany crc){
+    public Map<CarType, Integer> getNbReservationsPerCarType(String crc1){
+        CarRentalCompany crc = RentalStore.getRental(crc1);
         Collection<Car> cars = crc.getCars();
         Map<CarType,Integer> map = new HashMap();
         for(CarType c : crc.getCarTypes()){
@@ -41,7 +44,8 @@ public class ManagerSession {
         } 
         return map;
     }
-    public String getBestCustomer(CarRentalCompany crc){
+    public String getBestCustomer(String crc1){
+        CarRentalCompany crc = RentalStore.getRental(crc1);
         Collection<Car> cars = crc.getCars();
         Map<String,Integer> map = new HashMap();
         for(Car c : cars){
