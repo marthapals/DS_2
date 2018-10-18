@@ -15,36 +15,38 @@ public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSess
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
         System.out.println("found rental companies: "+session.getAllRentalCompanies());
+        Main main = new Main("simpleTrips");
+        main.run();
+    }
+
+    public Main(String scriptFile) {
+        super(scriptFile);
     }
 
     @Override
     protected CarRentalSessionRemote getNewReservationSession(String name) throws Exception {
             InitialContext context = new InitialContext();
-            session = (CarRentalSessionRemote) context.lookup(CarRentalSessionRemote.class.getName());
-            
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return (CarRentalSessionRemote) context.lookup(CarRentalSessionRemote.class.getName());
     }
 
     @Override
     protected ManagerSessionRemote getNewManagerSession(String name, String carRentalName) throws Exception {
             InitialContext context = new InitialContext();
-            session = (ManagerSessionRemote) context.lookup(ManagerSessionRemote.class.getName());
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return (ManagerSessionRemote) context.lookup(ManagerSessionRemote.class.getName());
     }
 
     @Override
     protected void checkForAvailableCarTypes(CarRentalSessionRemote session, Date start, Date end) throws Exception {
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            System.out.println(session.getAvailableCarTypes(start,end));
+        }
 
     @Override
     protected void addQuoteToSession(CarRentalSessionRemote session, String name, Date start, Date end, String carType, String region) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
