@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import rental.Reservation;
+import rental.ReservationConstraints;
 import session.CarRentalSessionRemote;
 import session.ManagerSessionRemote;
 
@@ -46,15 +47,14 @@ public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSess
 
     @Override
     protected void addQuoteToSession(CarRentalSessionRemote session, String name, Date start, Date end, String carType, String region) throws Exception {
-        
+        ReservationConstraints constraint = new ReservationConstraints(start,end,carType,region);
+        session.createQuote(constraint, name);
     }
 
     @Override
     protected List<Reservation> confirmQuotes(CarRentalSessionRemote session, String name) throws Exception {
         
-        
-        
-        //session.confirmQuotes(quotes);
+        return session.confirmQuotes(session.getCurrentQuotes());
         
     }
 

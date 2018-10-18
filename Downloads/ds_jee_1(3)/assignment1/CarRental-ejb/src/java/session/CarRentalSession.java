@@ -46,7 +46,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
     public List<Quote> getCurrentQuotes(){
         return quotes;
     }
-    public void confirmQuotes(List<Quote> quotes) throws ReservationException{
+    public List<Reservation> confirmQuotes(List<Quote> quotes) throws ReservationException{
         List<Reservation> res = new ArrayList();
         for (Quote q: quotes){
             try{
@@ -62,7 +62,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
                 
                 throw new ReservationException("All reservations cancelled");
             }
-    }
-    
+        }
+        return res
     }
 }
