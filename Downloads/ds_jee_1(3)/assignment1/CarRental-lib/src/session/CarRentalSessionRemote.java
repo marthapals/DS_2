@@ -1,5 +1,6 @@
 package session;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +12,7 @@ import rental.ReservationConstraints;
 import rental.ReservationException;
 
 @Remote
-public interface CarRentalSessionRemote {
+public interface CarRentalSessionRemote extends Remote{
     public List<CarType> getAvailableCarTypes(Date start, Date end)throws ReservationException;
     Set<String> getAllRentalCompanies();
     public void createQuote(ReservationConstraints constraint, String client) throws ReservationException;

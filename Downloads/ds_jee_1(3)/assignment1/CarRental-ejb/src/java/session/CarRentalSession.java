@@ -1,5 +1,6 @@
 package session;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import rental.ReservationConstraints;
 import rental.ReservationException;
 
 @Stateful
-public class CarRentalSession implements CarRentalSessionRemote {
+public class CarRentalSession implements CarRentalSessionRemote{
     private List<Quote> quotes = new ArrayList();
     @Override
     public Set<String> getAllRentalCompanies() {
@@ -63,6 +64,6 @@ public class CarRentalSession implements CarRentalSessionRemote {
                 throw new ReservationException("All reservations cancelled");
             }
         }
-        return res
+        return res;
     }
 }

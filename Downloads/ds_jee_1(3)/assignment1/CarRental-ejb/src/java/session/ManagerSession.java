@@ -5,6 +5,7 @@
  */
 package session;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,7 +25,7 @@ import rental.Reservation;
  */
 @Stateless
 @LocalBean
-public class ManagerSession {
+public class ManagerSession implements ManagerSessionRemote {
     
     public Collection<CarType> getCarTypesByCRC(String crc1){
         CarRentalCompany crc = RentalStore.getRental(crc1);

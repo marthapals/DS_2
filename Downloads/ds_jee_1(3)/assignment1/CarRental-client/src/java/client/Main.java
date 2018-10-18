@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import rental.Reservation;
 import rental.ReservationConstraints;
+import rental.ReservationException;
 import session.CarRentalSessionRemote;
 import session.ManagerSessionRemote;
 
@@ -53,8 +54,11 @@ public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSess
 
     @Override
     protected List<Reservation> confirmQuotes(CarRentalSessionRemote session, String name) throws Exception {
-        
-        return session.confirmQuotes(session.getCurrentQuotes());
+        try {
+            return session.confirmQuotes(session.getCurrentQuotes());
+        } catch (ReservationException e){
+            throw new ReservationException("error");
+        }
         
     }
 
