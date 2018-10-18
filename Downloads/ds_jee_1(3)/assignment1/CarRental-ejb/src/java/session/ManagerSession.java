@@ -7,7 +7,9 @@ package session;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import rental.Car;
@@ -29,17 +31,17 @@ public class ManagerSession {
         return crc.getCarTypes();
     }
     
-    public Map<CarType, Integer> getNbReservationsPerCarType(String crc1){
+    public Map<String, Integer> getNbReservationsPerCarType(String crc1){
         CarRentalCompany crc = RentalStore.getRental(crc1);
         Collection<Car> cars = crc.getCars();
-        Map<CarType,Integer> map = new HashMap();
+        Map<String,Integer> map = new HashMap();
         for(CarType c : crc.getCarTypes()){
-            map.put(c,0);
+            map.put(c.getName(),0);
         }
         for(Car c : cars){
             for(Reservation r : c.getAllReservations()){
-                Integer res = map.get(c.getType());
-                map.put(c.getType(),res+1);
+                Integer res = map.get(c.getType().getName());
+                map.put(c.getType().getName(),res+1);
             }  
         } 
         return map;
@@ -69,5 +71,17 @@ public class ManagerSession {
             }
         }
         return clien;
+    }
+    
+    public Integer getNumberOfReservationsBy(Set<String> crcs , String client){
+        Set<Reservation> reservations = new HashSet<Reservation>();
+        
+        //alle reservaties van een client opvragen per crc
+        for(String crc: crcs){
+            CarRentalCompany crcObj = RentalStore.getRental(crc);
+            reservations.addAll(crcObj.getReservationsBy(client));
+        }
+
+        return reservations.size();
     }
 }

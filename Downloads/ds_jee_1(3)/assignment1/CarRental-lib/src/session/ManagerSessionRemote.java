@@ -7,6 +7,7 @@ package session;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import rental.CarType;
 
 /**
@@ -16,5 +17,6 @@ import rental.CarType;
 public interface ManagerSessionRemote {
     public Collection<CarType> getCarTypesByCRC(String crc);
     public String getBestCustomer(String crc);
-    public Map<CarType, Integer> getNbReservationsPerCarType(String crc);
+    public Map<String, Integer> getNbReservationsPerCarType(String crc);
+    public Integer getNumberOfReservationsBy(Set<String> crcs , String client);
 }

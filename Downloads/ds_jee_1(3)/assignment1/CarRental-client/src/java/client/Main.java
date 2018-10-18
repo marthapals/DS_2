@@ -49,16 +49,28 @@ public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSess
 
     @Override
     protected List<Reservation> confirmQuotes(CarRentalSessionRemote session, String name) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        
+        
+        //session.confirmQuotes(quotes);
+        
     }
 
     @Override
     protected int getNumberOfReservationsBy(ManagerSessionRemote ms, String clientName) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        return ms.getNumberOfReservationsBy(session.getAllRentalCompanies(),clientName);
+        
     }
 
     @Override
     protected int getNumberOfReservationsForCarType(ManagerSessionRemote ms, String carRentalName, String carType) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if (ms.getNbReservationsPerCarType(carRentalName).get(carType) != null) {
+            return ms.getNbReservationsPerCarType(carRentalName).get(carType);
+        } else {
+            return 0;
+        }
+        
     }
 }
