@@ -60,6 +60,7 @@ public class ManagerSession {
         String clien="";
         for(String client : map.keySet()){
             if(map.get(client)>max){
+                max = map.get(client);
                 clien = client;
             }
         }

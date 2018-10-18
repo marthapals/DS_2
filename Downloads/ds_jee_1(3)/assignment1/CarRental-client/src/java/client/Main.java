@@ -3,6 +3,7 @@ package client;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import rental.Reservation;
 import session.CarRentalSessionRemote;
 import session.ManagerSessionRemote;
@@ -21,17 +22,23 @@ public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSess
 
     @Override
     protected CarRentalSessionRemote getNewReservationSession(String name) throws Exception {
+            InitialContext context = new InitialContext();
+            session = (CarRentalSessionRemote) context.lookup(CarRentalSessionRemote.class.getName());
             
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     protected ManagerSessionRemote getNewManagerSession(String name, String carRentalName) throws Exception {
+            InitialContext context = new InitialContext();
+            session = (ManagerSessionRemote) context.lookup(ManagerSessionRemote.class.getName());
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     protected void checkForAvailableCarTypes(CarRentalSessionRemote session, Date start, Date end) throws Exception {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
