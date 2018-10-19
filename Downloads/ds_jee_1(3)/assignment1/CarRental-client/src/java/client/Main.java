@@ -48,12 +48,17 @@ public class Main extends AbstractTestAgency<CarRentalSessionRemote, ManagerSess
 
     @Override
     protected void addQuoteToSession(CarRentalSessionRemote session, String name, Date start, Date end, String carType, String region) throws Exception {
-        ReservationConstraints constraint = new ReservationConstraints(start,end,carType,region);
-        session.createQuote(constraint, name);
+        try {
+            ReservationConstraints constraint = new ReservationConstraints(start,end,carType,region);
+            session.createQuote(constraint, name);
+        } catch (ReservationException e){
+            throw new ReservationException("error");
+        }
+        
     }
 
     @Override
-    protected List<Reservation> confirmQuotes(CarRentalSessionRemote session, String name) throws Exception {
+    protected List<Reservation> confirmQuotes(CarRentalSessionRemote session, String name) throws ReservationException {
         try {
             return session.confirmQuotes(session.getCurrentQuotes());
         } catch (ReservationException e){

@@ -31,16 +31,22 @@ public class CarRentalSession implements CarRentalSessionRemote{
         }
         return cartype;
     }
-    public void createQuote(ReservationConstraints constraint, String client){
+    public void createQuote(ReservationConstraints constraint, String client) throws ReservationException{
+      boolean go = true;
       for (String s: getAllRentalCompanies()){
-           try{
-               CarRentalCompany crc = RentalStore.getRental(s);
-               Quote quote = crc.createQuote(constraint, client);
-               quotes.add(quote);
-               break;
-           }
-           catch (ReservationException e){}
-           
+            try{
+                CarRentalCompany crc = RentalStore.getRental(s);
+                Quote quote = crc.createQuote(constraint, client);
+                quotes.add(quote);
+                go = false;
+            }
+            catch (ReservationException e){
+                
+            }
+      
+      }
+      if (go){
+          throw new ReservationException("error");
       }
     }
     public List<Quote> getCurrentQuotes(){

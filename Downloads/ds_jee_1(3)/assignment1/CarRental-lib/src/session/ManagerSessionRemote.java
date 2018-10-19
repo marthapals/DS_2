@@ -8,6 +8,7 @@ package session;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import javax.ejb.Remote;
 import rental.CarType;
 import rental.ReservationException;
 
@@ -15,7 +16,8 @@ import rental.ReservationException;
  *
  * @author Martha
  */
-public interface ManagerSessionRemote{
+@Remote
+public interface ManagerSessionRemote {
     public Collection<CarType> getCarTypesByCRC(String crc) throws ReservationException;
     public String getBestCustomer(String crc)throws ReservationException;
     public Map<String, Integer> getNbReservationsPerCarType(String crc)throws ReservationException;
